@@ -57,12 +57,21 @@ public class QuadTree<T> implements Pool.Poolable {
 
     protected boolean Insert(QuadTreeItem<T> item) {
         Rectangle rect = item.GetObjectBounds();
-        if (!(rect.x < bounds.x + bounds.width && rect.x + rect.width > bounds.x && rect.y < bounds.y + bounds.height && rect.y + rect.height > bounds.y)) {
+        if (!rect.overlaps(bounds)) {
             return false;
         }
 
-        if (objects.size < root.GetMaxItemsPerSector() && northWest == null || level >= root.GetMaxLevel()) {
-            objects.add(item);
+        if (northWest != null) {
+            if (northWest.Insert(item)
+                    || northEast.Insert(item)
+                    || southWest.Insert(item)
+                    || southEast.Insert(item)) {
+                return true;
+            }
+        }
+
+        objects.add(item);
+        if (objects.size <= root.GetMaxItemsPerSector() || level >= root.GetMaxLevel()) {
             return true;
         }
 
@@ -70,12 +79,22 @@ public class QuadTree<T> implements Pool.Poolable {
             Split();
         }
 
-        if (northWest.Insert(item)) return true;
-        if (northEast.Insert(item)) return true;
-        if (southWest.Insert(item)) return true;
-        if (southEast.Insert(item)) return true;
+        int i = 0;
+        while (i < objects.size) {
+            QuadTreeItem<T> arrayItem = objects.get(i);
+            if (northWest.Insert(arrayItem)
+                    || northEast.Insert(arrayItem)
+                    || southWest.Insert(arrayItem)
+                    || southEast.Insert(arrayItem)) {
+                objects.removeIndex(i);
+            }
+            else {
+                i++;
+            }
+        }
 
-        return false;
+
+        return true;
     }
 
     private void Split() {
@@ -105,27 +124,13 @@ public class QuadTree<T> implements Pool.Poolable {
     //
 
     Array<QuadTreeItem<T>> Retrieve(Array<QuadTreeItem<T>> list, Rectangle area) {
-        // I could use Rectangle.overlaps(), but a half-assed benchmark shows that checking
-        // if the rectangles overlap manually like I'm doing here is roughly 30% faster.
-        if (!((area.x < bounds.x + bounds.width && area.x + area.width > bounds.x && area.y < bounds.y + bounds.height && area.y + area.height > bounds.y))) {
-            return list; // empty list
+        if (northWest != null) {
+            if (northWest.bounds.overlaps(area)) northWest.Retrieve(list, area);
+            if (northEast.bounds.overlaps(area)) northEast.Retrieve(list, area);
+            if (southWest.bounds.overlaps(area)) southWest.Retrieve(list, area);
+            if (southEast.bounds.overlaps(area)) southEast.Retrieve(list, area);
         }
-
-        for (QuadTreeItem<T> item : objects) {
-            Rectangle rect = item.GetObjectBounds();
-            if (rect.x < area.x + area.width && rect.x + rect.width > area.x && rect.y < area.y + area.height && rect.y + rect.height > area.y) {
-                list.add(item);
-            }
-        }
-
-        if (northWest == null) {
-            return list;
-        }
-
-        northWest.Retrieve(list, area);
-        northEast.Retrieve(list, area);
-        southWest.Retrieve(list, area);
-        southEast.Retrieve(list, area);
+        list.addAll(objects);
 
         return list;
     }

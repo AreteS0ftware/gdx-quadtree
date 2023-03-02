@@ -126,7 +126,10 @@ public class QuadtreeExample extends ApplicationAdapter {
 		Frustum frustum = camera.frustum;
 		Vector3 min = frustum.planePoints[0];
 		Vector3 max = frustum.planePoints[2];
-		cameraBounds.set(min.x, min.y, max.x - min.x, max.y - min.y);
+		//cameraBounds.set(min.x, min.y, max.x - min.x, max.y - min.y);
+		//cameraBounds.set(camera.position.x - 250, camera.position.y - 250, camera.position.x + 250, camera.position.y + 250);
+		float diff = 200 * camera.zoom;
+		cameraBounds.set(min.x + diff, min.y + diff, max.x - min.x - (diff * 2f), max.y - min.y - (diff * 2f));
 	}
 
 	private void Draw() {
