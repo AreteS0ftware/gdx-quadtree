@@ -71,7 +71,7 @@ public class QuadTree<T> implements Pool.Poolable {
         }
 
         objects.add(item);
-        if (objects.size <= root.GetMaxItemsPerSector() || level >= root.GetMaxLevel()) {
+        if (objects.size <= root.GetMaxItemsPerNode() || level >= root.GetMaxLevel()) {
             return true;
         }
 
@@ -123,7 +123,7 @@ public class QuadTree<T> implements Pool.Poolable {
 
     //
 
-    Array<QuadTreeItem<T>> Retrieve(Array<QuadTreeItem<T>> list, Rectangle area) {
+    protected Array<QuadTreeItem<T>> Retrieve(Array<QuadTreeItem<T>> list, Rectangle area) {
         if (northWest != null) {
             if (northWest.bounds.overlaps(area)) northWest.Retrieve(list, area);
             if (northEast.bounds.overlaps(area)) northEast.Retrieve(list, area);

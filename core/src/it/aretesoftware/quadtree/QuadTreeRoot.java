@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Pool;
 
 public class QuadTreeRoot<T> extends QuadTree<T> {
 
-    private int maxLevel, maxItemsPerSector;
+    private int maxLevel, maxItemsPerNode;
     private final Pool<QuadTree<T>> quadTreePool;
     private final Pool<QuadTreeItem<T>> itemsPool;
     private final Array<QuadTreeItem<T>> retrievedItems;
@@ -15,13 +15,13 @@ public class QuadTreeRoot<T> extends QuadTree<T> {
         this(bounds, 6, 4, 32);
     }
 
-    public QuadTreeRoot(Rectangle bounds, int maxLevel, int maxItemsPerSector, int poolSize) {
-        super(bounds, maxItemsPerSector);
+    public QuadTreeRoot(Rectangle bounds, int maxLevel, int maxItemsPerNode, int poolSize) {
+        super(bounds, maxItemsPerNode);
         super.root = this;
         //
         this.maxLevel = maxLevel;
-        this.maxItemsPerSector = maxItemsPerSector;
-        quadTreePool = CreateQuadtreePool(maxItemsPerSector);
+        this.maxItemsPerNode = maxItemsPerNode;
+        quadTreePool = CreateQuadtreePool(maxItemsPerNode);
         itemsPool = CreateItemsPool(poolSize);
         retrievedItems = new Array<>(poolSize);
     }
@@ -31,7 +31,7 @@ public class QuadTreeRoot<T> extends QuadTree<T> {
             @Override
             protected QuadTree<T> newObject() {
                 Rectangle rectangle = new Rectangle();
-                QuadTree<T> quadTree = new QuadTree<>(rectangle, maxItemsPerSector);
+                QuadTree<T> quadTree = new QuadTree<>(rectangle, maxItemsPerNode);
                 quadTree.root = QuadTreeRoot.this;
                 return quadTree;
             }
@@ -89,12 +89,12 @@ public class QuadTreeRoot<T> extends QuadTree<T> {
         this.maxLevel = maxLevel;
     }
 
-    public int GetMaxItemsPerSector() {
-        return maxItemsPerSector;
+    public int GetMaxItemsPerNode() {
+        return maxItemsPerNode;
     }
 
-    public void SetMaxItemsPerSector(int maxItemsPerSector) {
-        this.maxItemsPerSector = maxItemsPerSector;
+    public void SetMaxItemsPerNode(int maxItemsPerSector) {
+        this.maxItemsPerNode = maxItemsPerSector;
     }
 
     //
