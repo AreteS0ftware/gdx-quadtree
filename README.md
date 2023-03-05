@@ -43,3 +43,7 @@ You can easily change the root's properties by calling their relative setters - 
 * <code>maxItemsPerNode</code> is the amount of <code>QuadTreeItem</code>s that must be present in a <code>QuadTree</code> before it will <code>Split()</code>.
 
 Changing these properties has a **significant effect on performance**! You should tune them according to your game's needs for the maximum amount of gains.
+
+## Roadmap
+#### To Do
+🔲 Differentiate between static and dynamic objects
