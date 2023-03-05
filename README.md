@@ -6,6 +6,27 @@ gdx-quadtree, is a modern, <code><a href="https://libgdx.com/wiki/articles/memor
 * This is helpful for games that have many objects that check their position relative to other objects or games that need to find objects by position enough times that the performance would suffer.
 * On the other hand, if said games don't have too many objects, or have lots of objects that don't really interact with each other in any significant way, then it would be best not to bother.
 
+## Install
+gdx-quadtree is available via JitPack. Make sure you have JitPack declared as repository in your root <code>build.gradle</code> file:
+
+```
+allprojects {
+    repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+Then add gdx-quadtree as dependency in your core project:
+```
+project(":core") {
+    dependencies {
+    	// ...
+        implementation 'com.github.aret3dev:gdx-quadtree:1.0.0'
+    }
+}
+```
+
 ## Usage
 ```java
 Rectangle cameraBounds;
