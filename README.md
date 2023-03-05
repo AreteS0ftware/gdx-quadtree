@@ -10,7 +10,7 @@ gdx-quadtree, is a modern, <code><a href="https://libgdx.com/wiki/articles/memor
 * On the other hand, if said games don't have too many objects, or have lots of objects that don't really interact with each other in any significant way, then it would be best not to bother.
 
 ## Install
-gdx-quadtree is available via JitPack. Make sure you have JitPack declared as repository in your root <code>build.gradle</code> file:
+gdx-quadtree is available via JitPack. Make sure you have JitPack declared as a repository in your root <code>build.gradle</code> file:
 
 ```
 allprojects {
