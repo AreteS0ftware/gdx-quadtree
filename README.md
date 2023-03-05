@@ -1,4 +1,7 @@
 # gdx-quadtree
+[![Release](https://jitpack.io/v/aret3dev/gdx-quadtree.svg)](https://jitpack.io/v/aret3dev/gdx-quadtree)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Versioning](https://img.shields.io/badge/semver-2.0.0-blue)](https://semver.org/)
 
 *For a more in-depth explanation, check out <a href="https://aretesoftware.it/libgdx/gdx-quadtree.html">this article</a> - for a live demo, <a href="https://aretesoftware.it/libgdx/gdx-quadtree-example/">click here</a>.*
 
