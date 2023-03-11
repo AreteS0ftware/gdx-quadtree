@@ -48,13 +48,13 @@ public void render() {
     // Game logic
     root.clear();
     for (Entity entity : entities) {
-        QuadTreeItem<Entity> item = root.ObtainItem();
-        item.init(entity, entity.GetAABBRectangle());
+        QuadTreeItem<Entity> item = root.obtainItem();
+        item.init(entity, entity.getAABBRectangle());
         // Performance would probably much better if all static entities & geometry 
         // that make up a level is inserted into the Quadtree only once!
         root.insert(item);
     }
-    Array<QuadTreeItem<Entity>> list = root.Retrieve(cameraBounds);
+    Array<QuadTreeItem<Entity>> list = root.retrieve(cameraBounds);
     for (QuadTreeItem<Entity> item : list) {
         item.getObject().draw(batch);
     }
