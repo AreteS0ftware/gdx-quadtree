@@ -46,25 +46,25 @@ public void create() {
 @Override
 public void render() {
     // Game logic
-    root.Clear();
+    root.clear();
     for (Entity entity : entities) {
         QuadTreeItem<Entity> item = root.ObtainItem();
         item.init(entity, entity.GetAABBRectangle());
         // Performance would probably much better if all static entities & geometry 
         // that make up a level is inserted into the Quadtree only once!
-        root.Insert(item);
+        root.insert(item);
     }
     Array<QuadTreeItem<Entity>> list = root.Retrieve(cameraBounds);
     for (QuadTreeItem<Entity> item : list) {
-        item.GetObject().Draw(batch);
+        item.getObject().draw(batch);
     }
 }
 ```
 
 ## Root Properties
 You can easily change the root's properties by calling their relative setters - this by extension affects the entire <code>QuadTree</code>.
-* <code>maxLevel</code> is highest level the <code>QuadTree</code> can reach, i.e. how many times it will <code>Split()</code>
-* <code>maxItemsPerNode</code> is the amount of <code>QuadTreeItem</code>s that must be present in a <code>QuadTree</code> before it will <code>Split()</code>.
+* <code>maxLevel</code> is highest level the <code>QuadTree</code> can reach, i.e. how many times it will <code>split()</code>
+* <code>maxItemsPerNode</code> is the amount of <code>QuadTreeItem</code>s that must be present in a <code>QuadTree</code> before it will <code>split()</code>.
 
 Changing these properties has a **significant effect on performance**! You should tune them according to your game's needs for the maximum amount of gains.
 
