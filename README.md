@@ -1,5 +1,5 @@
 # gdx-quadtree
-[![Release](https://jitpack.io/v/aret3dev/gdx-quadtree.svg)](https://jitpack.io/v/aret3dev/gdx-quadtree)
+[![Release](https://jitpack.io/v/AreteS0ftware/gdx-quadtree.svg)](https://jitpack.io/v/AreteS0ftware/gdx-quadtree)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Versioning](https://img.shields.io/badge/semver-2.0.0-blue)](https://semver.org/)
 
@@ -25,7 +25,7 @@ Then add gdx-quadtree as dependency in your core project:
 project(":core") {
     dependencies {
     	// ...
-        implementation 'com.github.aret3dev:gdx-quadtree:1.0.0'
+        implementation 'com.github.AreteS0ftware:gdx-quadtree:1.0.0'
     }
 }
 ```
